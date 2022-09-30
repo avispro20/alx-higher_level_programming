@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <python.h>
+#include <Python.h>
 
 /**
  * print_python_bytes - Prints bytes information
@@ -20,7 +20,10 @@ void print_python_bytes(PyObject *p)
 	}
 
 	size = ((PyVarObject *)(p))->ob_size;
-	string = ((PyBytesObjecty *)p)->ob_sval;
+	string = ((PyBytesObject *)p)->ob_sval;
+
+	printf("  size: %ld\n", size);
+	printf("  trying string: %s\n", string);
 
 	if (size >= 10)
 		limit = 10;
@@ -33,7 +36,8 @@ void print_python_bytes(PyObject *p)
 		if (string[i] >= 0)
 			printf(" %02x", string[i]);
 		else
-			printf(" %02x" 256 + string[i]);
+			printf(" %02x", 256 + string[i]);
+
 	printf("\n");
 }
 
@@ -45,15 +49,15 @@ void print_python_bytes(PyObject *p)
  */
 void print_python_list(PyObject *p)
 {
-	img int size, i;
+	long int size, i;
 	PyListObject *list;
 	PyObject *obj;
 
-	size = ((PyvarObject *)(p))->ob_size;
+	size = ((PyVarObject *)(p))->ob_size;
 	list = (PyListObject *)p;
 
 	printf("[*] Python list info\n");
-	printf("[*] Size of the Python list = %ld\n", size);
+	printf("[*] Size of the Python List = %ld\n", size);
 	printf("[*] Allocated = %ld\n", list->allocated);
 
 	for (i = 0; i < size; i++)
